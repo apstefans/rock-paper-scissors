@@ -1,68 +1,101 @@
 let playerScore = 0;
 let computerScore = 0;
 let playerPick;
-let computerPick
+let computerPick;
 
 const picks = ["rock", "paper", "scissors"];
 
+const container = document.querySelector('#container');
 
-playRound();
-playRound();
-playRound();
-playRound();
-playRound();
-winner();
+const score = document.createElement('div');
+score.textContent = 'Player: ' + playerScore + 
+' - ' + 'Computer: ' + computerScore;
+container.appendChild(score);
+
+const message = document.createElement('div');
+message.textContent = 'Pick rock, paper or scissors';
+container.appendChild(message);
+
+const rock = document.createElement("button");
+rock.textContent = 'Rock';
+rock.addEventListener('click', () => {
+    playRound(playerPick = 'rock')
+});
+container.appendChild(rock);
+
+const paper = document.createElement("button");
+paper.textContent = 'Paper';
+paper.addEventListener('click', () => {
+    playRound(playerPick = 'paper');
+});
+container.appendChild(paper);
+
+const scissors = document.createElement("button");
+scissors.textContent = 'Scissors';
+scissors.addEventListener('click', () => {
+    playRound(playerPick = 'scissors');
+});
+container.appendChild(scissors);
 
 function getComputerPick() {
     return picks[Math.floor(Math.random() * picks.length)];
 }
 
 function playRound(playerPick, computerPick) {
-    playerPick = prompt("Rock, Paper or Scissors?");
-    playerPick = playerPick.toLowerCase();
     computerPick = getComputerPick().toLowerCase();
     if (playerPick === computerPick) {
-        console.log("It's a tie! No points!");
-        console.log("You " + playerScore + "-" + computerScore + " Computer");
+        message.textContent = "It's a tie! No points!";
+        score.textContent = 'Player: ' + playerScore + 
+        ' - ' + 'Computer: ' + computerScore;        
     } else if (playerPick == "rock" && computerPick == "paper") {
-        console.log("Computer picked paper and gets a point!");
+        message.textContent = "Computer picked paper and gets a point!";
         computerScore++;
-        console.log("The score is ");
-        console.log("You " + playerScore + "-" + computerScore + " Computer");
+        score.textContent = 'Player: ' + playerScore + 
+        ' - ' + 'Computer: ' + computerScore;
     } else if (playerPick == "rock" && computerPick == "scissors") {
-        console.log("Computer picked scissors so you win and get a point!");
+        message.textContent = "Computer picked scissors so you win and get a point!";
         playerScore++;
-        console.log("The score is ");
-        console.log("You " + playerScore + "-" + computerScore + " Computer");
+        score.textContent = 'Player: ' + playerScore + 
+        ' - ' + 'Computer: ' + computerScore;
     } else if (playerPick == "paper" && computerPick == "rock") {
-        console.log("Computer picked rock so you win and get a point!");
+        message.textContent = "Computer picked rock so you win and get a point!";
         playerScore++;
-        console.log("The score is ");
-        console.log("You " + playerScore + "-" + computerScore + " Computer");
+        score.textContent = 'Player: ' + playerScore + 
+        ' - ' + 'Computer: ' + computerScore;
     } else if (playerPick == "paper" && computerPick == "scissors") {
-        console.log("Computer picked scissors and gets a point!");
+        message.textContent = "Computer picked scissors and gets a point!";
         computerScore++;
-        console.log("The score is ");
-        console.log("You " + playerScore + "-" + computerScore + " Computer");
+        score.textContent = 'Player: ' + playerScore + 
+        ' - ' + 'Computer: ' + computerScore;
     } else if (playerPick == "scissors" && computerPick == "rock") {
-        console.log("Computer picked rock and gets a point!");
+        message.textContent = "Computer picked rock and gets a point!";
         computerScore++;
-        console.log("The score is ");
-        console.log("You " + playerScore + "-" + computerScore + " Computer")
+        score.textContent = 'Player: ' + playerScore + 
+        ' - ' + 'Computer: ' + computerScore;
     } else if (playerPick == "scissors" && computerPick == "paper") {
-        console.log("Computer picked paper so you win and get a point!");
+        message.textContent = "Computer picked paper so you win and get a point!";
         playerScore++;
-        console.log("The score is ");
-        console.log("You " + playerScore + "-" + computerScore + " Computer");
+        score.textContent = 'Player: ' + playerScore + 
+        ' - ' + 'Computer: ' + computerScore;
     }  
+    
+    if (playerScore === 5 || computerScore === 5) {
+        winner()
+    } 
 } 
 
 function winner() {
     if (playerScore === computerScore) {
-        console.log("It's a tie! Try again!")
+        message.textContent = "It's a tie! Try again!";
+        playerScore = 0;
+        computerScore = 0;
     } else if (playerScore > computerScore) {
-        console.log("You win! Congratulations!")
+        message.textContent = "You win! Congratulations!";
+        playerScore = 0;
+        computerScore = 0;
     } else {
-        console.log("Computer wins! Better luck next time!")
+        message.textContent = "Computer wins! Better luck next time!";
+        playerScore = 0;
+        computerScore = 0;
     }
 }
